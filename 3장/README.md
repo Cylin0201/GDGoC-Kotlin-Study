@@ -48,4 +48,17 @@ infix fun Any.to(other: Any) = pair(this, other)
 
 중복되는 메소드가 보이는 예제(3.12)의 검증 로직을 확장 함수로 추출하여 많이 단축시킬 수 있다.
 
-![img_1.png](img_1.png)
+```kotlin
+//3.15  검증 로직을 확장 함수로 추출하기 
+class User(val id: Int, val name: String, val address: String)
+
+fun User.validateBeforeSave(){
+    fun validate(value:String, fieldName: String){
+        if (value.isEmpty()){
+            throw IllegalArgumentException(
+                "Can't save user $id: empty $fieldName") //User의 프로퍼티를 직접 사용할 수 있다.
+        }
+    }
+}
+
+```
